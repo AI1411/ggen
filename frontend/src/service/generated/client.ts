@@ -21,13 +21,15 @@ import type {
   AxiosResponse
 } from 'axios'
 import type {
-  GetPrefecture404,
+  HandlerErrorResponse,
+  HandlerErrorResponseDetail,
   HandlerPrefectureResponse
 } from './model'
 
 
 
 /**
+ * 都道府県の一覧を取得します。
  * @summary 都道府県一覧取得
  */
 export const listPrefectures = (
@@ -45,7 +47,7 @@ export const getListPrefecturesQueryKey = () => {
     }
 
     
-export const getListPrefecturesQueryOptions = <TData = Awaited<ReturnType<typeof listPrefectures>>, TError = AxiosError<unknown>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listPrefectures>>, TError, TData>>, axios?: AxiosRequestConfig}
+export const getListPrefecturesQueryOptions = <TData = Awaited<ReturnType<typeof listPrefectures>>, TError = AxiosError<HandlerErrorResponse>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listPrefectures>>, TError, TData>>, axios?: AxiosRequestConfig}
 ) => {
 
 const {query: queryOptions, axios: axiosOptions} = options ?? {};
@@ -64,12 +66,12 @@ const {query: queryOptions, axios: axiosOptions} = options ?? {};
 }
 
 export type ListPrefecturesQueryResult = NonNullable<Awaited<ReturnType<typeof listPrefectures>>>
-export type ListPrefecturesQueryError = AxiosError<unknown>
+export type ListPrefecturesQueryError = AxiosError<HandlerErrorResponse>
 
 /**
  * @summary 都道府県一覧取得
  */
-export const useListPrefectures = <TData = Awaited<ReturnType<typeof listPrefectures>>, TError = AxiosError<unknown>>(
+export const useListPrefectures = <TData = Awaited<ReturnType<typeof listPrefectures>>, TError = AxiosError<HandlerErrorResponse>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listPrefectures>>, TError, TData>>, axios?: AxiosRequestConfig}
 
   ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
@@ -87,10 +89,11 @@ export const useListPrefectures = <TData = Awaited<ReturnType<typeof listPrefect
 
 
 /**
+ * 都道府県コードを指定して、都道府県の詳細情報を取得します。
  * @summary 都道府県詳細取得
  */
 export const getPrefecture = (
-    code: number, options?: AxiosRequestConfig
+    code: string, options?: AxiosRequestConfig
  ): Promise<AxiosResponse<HandlerPrefectureResponse>> => {
     
     return axios.default.get(
@@ -99,12 +102,12 @@ export const getPrefecture = (
   }
 
 
-export const getGetPrefectureQueryKey = (code: number,) => {
+export const getGetPrefectureQueryKey = (code: string,) => {
     return [`/prefectures/${code}`] as const;
     }
 
     
-export const getGetPrefectureQueryOptions = <TData = Awaited<ReturnType<typeof getPrefecture>>, TError = AxiosError<GetPrefecture404>>(code: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPrefecture>>, TError, TData>>, axios?: AxiosRequestConfig}
+export const getGetPrefectureQueryOptions = <TData = Awaited<ReturnType<typeof getPrefecture>>, TError = AxiosError<HandlerErrorResponseDetail | HandlerErrorResponse>>(code: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPrefecture>>, TError, TData>>, axios?: AxiosRequestConfig}
 ) => {
 
 const {query: queryOptions, axios: axiosOptions} = options ?? {};
@@ -123,13 +126,13 @@ const {query: queryOptions, axios: axiosOptions} = options ?? {};
 }
 
 export type GetPrefectureQueryResult = NonNullable<Awaited<ReturnType<typeof getPrefecture>>>
-export type GetPrefectureQueryError = AxiosError<GetPrefecture404>
+export type GetPrefectureQueryError = AxiosError<HandlerErrorResponseDetail | HandlerErrorResponse>
 
 /**
  * @summary 都道府県詳細取得
  */
-export const useGetPrefecture = <TData = Awaited<ReturnType<typeof getPrefecture>>, TError = AxiosError<GetPrefecture404>>(
- code: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPrefecture>>, TError, TData>>, axios?: AxiosRequestConfig}
+export const useGetPrefecture = <TData = Awaited<ReturnType<typeof getPrefecture>>, TError = AxiosError<HandlerErrorResponseDetail | HandlerErrorResponse>>(
+ code: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPrefecture>>, TError, TData>>, axios?: AxiosRequestConfig}
 
   ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
 

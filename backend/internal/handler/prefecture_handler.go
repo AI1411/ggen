@@ -15,7 +15,7 @@ type PrefectureHandler interface {
 }
 
 type prefectureHandler struct {
-	l                 *logger.Logger
+	appLogger         *logger.Logger
 	prefectureUseCase usecase.PrefectureUseCase
 }
 
@@ -24,7 +24,7 @@ func NewPrefectureHandler(
 	prefectureUseCase usecase.PrefectureUseCase,
 ) PrefectureHandler {
 	return &prefectureHandler{
-		l:                 l,
+		appLogger:         l,
 		prefectureUseCase: prefectureUseCase,
 	}
 }
@@ -42,13 +42,18 @@ type PrefectureResponse struct {
 // @produce json
 // @Summary 都道府県一覧取得
 // @Success 200 {array} PrefectureResponse
+// @Failure 401 {object} ErrorResponse
+// @Failure 403 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Security ApiKeyAuth
+// @Security BearerAuth
+// @Description 都道府県の一覧を取得します。
 // @Router /prefectures [get]
 func (h *prefectureHandler) ListPrefectures(c *gin.Context) {
-	ctx := c.Request.Context()
-	prefectures, err := h.prefectureUseCase.ListPrefectures(ctx)
+	prefectures, err := h.prefectureUseCase.ListPrefectures(c.Request.Context())
 	if err != nil {
-		h.l.ErrorContext(ctx, err, "Failed to list prefectures")
-		c.JSON(500, gin.H{"error": "Internal Server Error"})
+		handleError(c, err, h.appLogger, "Failed to list prefectures")
 
 		return
 	}
@@ -61,7 +66,6 @@ func (h *prefectureHandler) ListPrefectures(c *gin.Context) {
 		})
 	}
 
-	h.l.InfoContext(ctx, "Successfully listed prefectures", "count", len(response))
 	c.JSON(http.StatusOK, response)
 }
 
@@ -82,24 +86,38 @@ type Municipality struct {
 	IsActive              bool   `json:"is_active"`
 }
 
+type GetPrefectureRequest struct {
+	Code string `form:"code" binding:"required,numeric"`
+}
+
 // GetPrefecture @title 都道府県詳細取得
 // @id GetPrefecture
 // @tags prefectures
 // @accept json
 // @produce json
-// @Param code path int true "都道府県ID"
+// @Param code path string true "都道府県コード"
+// @Description 都道府県コードを指定して、都道府県の詳細情報を取得します。
 // @Summary 都道府県詳細取得
 // @Success 200 {object} PrefectureResponse
-// @Failure 404 {object} map[string]string
+// @Failure 400 {object} ErrorResponseDetail
+// @Failure 401 {object} ErrorResponse
+// @Failure 403 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
 // @Router /prefectures/{code} [get]
 func (h *prefectureHandler) GetPrefecture(c *gin.Context) {
 	ctx := c.Request.Context()
 	code := c.Param("code")
+	var req GetPrefectureRequest
+	req.Code = code
+	if err := c.ShouldBindUri(&req); err != nil {
+		handleValidationError(c, err, h.appLogger, "invalid prefecture code")
+
+		return
+	}
 
 	prefecture, err := h.prefectureUseCase.GetPrefectureByCode(ctx, code)
 	if err != nil {
-		h.l.ErrorContext(ctx, err, "PrefectureHandler not found", "prefecture_code", code)
-		c.JSON(404, gin.H{"error": "PrefectureHandler not found"})
+		handleError(c, err, h.appLogger, "failed to get prefecture")
 
 		return
 	}

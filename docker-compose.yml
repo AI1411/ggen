@@ -76,12 +76,13 @@ services:
       - gen-network
     restart: unless-stopped
   docs:
+    platform: linux/x86_64
     container_name: docs
     image: redocly/redoc
     ports:
       - "8084:80"
     volumes:
-      - ./docs/:/usr/share/nginx/html/swagger/
+      - ./backend/docs/api/:/usr/share/nginx/html/swagger/
     environment:
       - SPEC_URL=swagger/swagger.yaml
     networks:
