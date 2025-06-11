@@ -1,0 +1,6 @@
+/backend/tmp
+.idea/*
+.env
+backend/docs/api
+backend/tmp
+frontend/node_modules

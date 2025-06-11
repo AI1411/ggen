@@ -1,0 +1,140 @@
+run:
+  timeout: 5m
+  modules-download-mode: readonly
+
+linters:
+  disable-all: true
+  enable:
+    # 基本的なエラーチェック
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - typecheck
+    - unused
+
+    # コードスタイル
+    - gofmt
+    - gofumpt
+    - goimports
+    - gocritic
+    - revive
+    - stylecheck
+
+    # 複雑度チェック
+    - gocyclo
+    - gocognit
+    - funlen
+    - lll
+
+    # セキュリティ
+    - gosec
+    - exportloopref
+
+    # パフォーマンス
+    - prealloc
+    - unconvert
+
+    # 可読性
+    - misspell
+    - unparam
+    - whitespace
+    - wsl
+
+    # テスト
+    - testpackage
+    - tparallel
+
+linters-settings:
+  # 行の長さ制限
+  lll:
+    line-length: 120
+
+  # 関数の複雑度
+  gocyclo:
+    min-complexity: 15
+
+  # 認知複雑度
+  gocognit:
+    min-complexity: 20
+
+  # 関数の長さ
+  funlen:
+    lines: 80
+    statements: 40
+
+  # goimports設定
+  goimports:
+    local-prefixes: g_gen
+
+  # revive設定
+  revive:
+    confidence: 0.8
+    rules:
+      - name: exported
+        severity: warning
+        disabled: false
+        arguments:
+          - "checkPrivateReceivers"
+          - "sayRepetitiveInsteadOfStutters"
+      - name: package-comments
+        severity: warning
+        disabled: false
+      - name: var-naming
+        severity: warning
+        disabled: false
+        arguments:
+          - ["ID"] # allow ID
+
+  # gosec設定
+  gosec:
+    excludes:
+      - G404 # 暗号学的に安全でない乱数の使用を除外（開発環境での使用）
+
+  # gocritic設定
+  gocritic:
+    enabled-tags:
+      - diagnostic
+      - experimental
+      - opinionated
+      - performance
+      - style
+    disabled-checks:
+      - dupImport # https://github.com/go-critic/go-critic/issues/845
+      - ifElseChain
+      - octalLiteral
+      - whyNoLint
+
+issues:
+  # 新しいコードのみチェック
+  new: false
+
+  # 除外設定
+  exclude-rules:
+    # テストファイルでは一部のチェックを無効化
+    - path: _test\.go
+      linters:
+        - gosec
+        - dupl
+        - funlen
+        - gocyclo
+        - gocognit
+
+    # マイグレーションファイルでは一部のチェックを無効化
+    - path: migrations/
+      linters:
+        - gofmt
+        - goimports
+
+    # 自動生成ファイルを除外
+    - path: ".*\\.gen\\.go$"
+      linters:
+        - gosec
+        - revive
+        - stylecheck
+        - unused
+
+  # 除外する警告
+  exclude:
+    - "Error return value of .((os\\.)?std(out|err)\\..*|.*Close|.*Flush|os\\.Remove(All)?|.*printf?|os\\.(Un)?Setenv). is not checked"

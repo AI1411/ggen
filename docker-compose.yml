@@ -1,0 +1,97 @@
+services:
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: build/api/Dockerfile-dev
+    command: air -c .air.toml
+    ports:
+      - "8080:8080"
+      - "2345:2345"
+    depends_on:
+      - postgres
+      - postgres-test
+    env_file:
+      - .env
+    volumes:
+      - ./backend:/go/src/
+    networks:
+      - gen-network
+    restart: unless-stopped
+  postgres:
+    build:
+      context: .
+      dockerfile: build/postgres/Dockerfile
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=gen
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - gen-network
+    restart: unless-stopped
+  postgres-test:
+    build:
+      context: .
+      dockerfile: build/postgres/Dockerfile
+    container_name: postgres-test
+    ports:
+      - "15432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=gen_test
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+    networks:
+      - gen-network
+    restart: unless-stopped
+  migrations:
+    container_name: migrations
+    image: migrate/migrate
+    entrypoint: /bin/sh
+    tty: true
+    volumes:
+      - ./backend/migrations:/migrations
+    working_dir: /migrations
+    depends_on:
+      - postgres
+      - postgres-test
+    networks:
+      - gen-network
+  mail:
+    container_name: mail
+    platform: linux/amd64  # apple silicon以外の環境で実行する場合は不要
+    image: mailhog/mailhog:v1.0.0
+    ports:
+      - "1025:1025"  # SMTP port
+      - "8025:8025"  # Web UI port
+    environment:
+      - MH_STORAGE=memory
+    networks:
+      - gen-network
+    restart: unless-stopped
+  docs:
+    container_name: docs
+    image: redocly/redoc
+    ports:
+      - "8084:80"
+    volumes:
+      - ./docs/:/usr/share/nginx/html/swagger/
+    environment:
+      - SPEC_URL=swagger/swagger.yaml
+    networks:
+      - gen-network
+    restart: unless-stopped
+
+networks:
+  gen-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  postgres_test_data:
