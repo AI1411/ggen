@@ -128,7 +128,7 @@ func TestPrefectureUseCase_GetPrefectureByID(t *testing.T) {
 			tt.mockSetup(mockRepo)
 
 			// Call the method
-			prefecture, err := useCase.GetPrefectureByID(ctx, tt.id)
+			prefecture, err := useCase.GetPrefectureByCode(ctx, tt.id)
 
 			// Check results
 			if tt.expectedError {

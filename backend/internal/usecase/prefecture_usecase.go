@@ -10,7 +10,7 @@ import (
 
 type PrefectureUseCase interface {
 	ListPrefectures(ctx context.Context) ([]*model.Prefecture, error)
-	GetPrefectureByID(ctx context.Context, code string) (*model.Prefecture, error)
+	GetPrefectureByCode(ctx context.Context, code string) (*model.Prefecture, error)
 }
 
 type prefectureUseCase struct {
@@ -34,7 +34,7 @@ func (u *prefectureUseCase) ListPrefectures(ctx context.Context) ([]*model.Prefe
 	return prefectures, nil
 }
 
-func (u *prefectureUseCase) GetPrefectureByID(ctx context.Context, code string) (*model.Prefecture, error) {
+func (u *prefectureUseCase) GetPrefectureByCode(ctx context.Context, code string) (*model.Prefecture, error) {
 	prefecture, err := u.prefectureRepository.FindByCode(ctx, code)
 	if err != nil {
 		return nil, err

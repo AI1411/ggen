@@ -9,7 +9,7 @@
     "lint": "biome lint .",
     "format": "biome format --write .",
     "preview": "vite preview",
-    "generate-api": "orval --config orval.config.js",
+    "generate": "orval",
     "generate-routes": "tsx scripts/generate-routes.ts"
   },
   "dependencies": {

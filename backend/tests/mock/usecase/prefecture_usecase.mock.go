@@ -40,19 +40,19 @@ func (m *MockPrefectureUseCase) EXPECT() *MockPrefectureUseCaseMockRecorder {
 	return m.recorder
 }
 
-// GetPrefectureByID mocks base method.
-func (m *MockPrefectureUseCase) GetPrefectureByID(ctx context.Context, code string) (*model.Prefecture, error) {
+// GetPrefectureByCode mocks base method.
+func (m *MockPrefectureUseCase) GetPrefectureByCode(ctx context.Context, code string) (*model.Prefecture, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetPrefectureByID", ctx, code)
+	ret := m.ctrl.Call(m, "GetPrefectureByCode", ctx, code)
 	ret0, _ := ret[0].(*model.Prefecture)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// GetPrefectureByID indicates an expected call of GetPrefectureByID.
-func (mr *MockPrefectureUseCaseMockRecorder) GetPrefectureByID(ctx, code any) *gomock.Call {
+// GetPrefectureByCode indicates an expected call of GetPrefectureByCode.
+func (mr *MockPrefectureUseCaseMockRecorder) GetPrefectureByCode(ctx, code any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetPrefectureByID", reflect.TypeOf((*MockPrefectureUseCase)(nil).GetPrefectureByID), ctx, code)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetPrefectureByCode", reflect.TypeOf((*MockPrefectureUseCase)(nil).GetPrefectureByCode), ctx, code)
 }
 
 // ListPrefectures mocks base method.

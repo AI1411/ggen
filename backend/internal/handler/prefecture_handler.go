@@ -87,7 +87,7 @@ type Municipality struct {
 // @tags prefectures
 // @accept json
 // @produce json
-// @Param id path int true "都道府県ID"
+// @Param code path int true "都道府県ID"
 // @Summary 都道府県詳細取得
 // @Success 200 {object} PrefectureResponse
 // @Failure 404 {object} map[string]string
@@ -96,7 +96,7 @@ func (h *prefectureHandler) GetPrefecture(c *gin.Context) {
 	ctx := c.Request.Context()
 	code := c.Param("code")
 
-	prefecture, err := h.prefectureUseCase.GetPrefectureByID(ctx, code)
+	prefecture, err := h.prefectureUseCase.GetPrefectureByCode(ctx, code)
 	if err != nil {
 		h.l.ErrorContext(ctx, err, "PrefectureHandler not found", "prefecture_code", code)
 		c.JSON(404, gin.H{"error": "PrefectureHandler not found"})
