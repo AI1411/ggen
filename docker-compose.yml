@@ -76,7 +76,7 @@ services:
       - gen-network
     restart: unless-stopped
   docs:
-    platform: linux/x86_64
+    platform: linux/x86_64 # apple silicon以外の環境で実行する場合はコメントアウトする
     container_name: docs
     image: redocly/redoc
     ports:
