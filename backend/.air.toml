@@ -11,7 +11,7 @@ cmd = "go build -o ./tmp/main ./cmd/api/main.go"
 # Binary file yields from `cmd`.
 bin = "tmp/main"
 # Customize binary.
-full_bin = "APP_ENV=air dlv debug --headless --listen=:2345 --api-version=2 --accept-multiclient exec --continue ./tmp/main"
+full_bin = "APP_ENV=air dlv debug --headless --listen=:2345 --api-version=2 --accept-multiclient ./tmp/main"
 # Watch these filename extensions.
 include_ext = ["go", "tpl", "tmpl", "html"]
 # Ignore these filename extensions or directories.
