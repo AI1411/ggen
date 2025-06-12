@@ -23,6 +23,7 @@ import type {
 import type {
   HandlerErrorResponse,
   HandlerErrorResponseDetail,
+  HandlerGetPrefectureResponse,
   HandlerPrefectureResponse
 } from '../../types/generated/model'
 
@@ -94,7 +95,7 @@ export const useListPrefectures = <TData = Awaited<ReturnType<typeof listPrefect
  */
 export const getPrefecture = (
     code: string, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<HandlerPrefectureResponse>> => {
+ ): Promise<AxiosResponse<HandlerGetPrefectureResponse>> => {
     
     return axios.default.get(
       `/prefectures/${code}`,options

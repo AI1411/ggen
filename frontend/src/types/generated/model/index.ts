@@ -8,6 +8,8 @@
 
 export * from './handlerErrorResponse';
 export * from './handlerErrorResponseDetail';
+export * from './handlerGetPrefectureResponse';
+export * from './handlerMunicipality';
 export * from './handlerPrefectureResponse';
 export * from './handlerValidationError';
 export * from './myerrorsErrorCode';

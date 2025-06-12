@@ -14,12 +14,13 @@ import {
   http
 } from 'msw'
 import type {
+  HandlerGetPrefectureResponse,
   HandlerPrefectureResponse
 } from '../../types/generated/model'
 
 export const getListPrefecturesResponseMock = (): HandlerPrefectureResponse[] => (Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({code: faker.helpers.arrayElement([faker.word.sample(), undefined]), id: faker.helpers.arrayElement([faker.number.int({min: undefined, max: undefined}), undefined]), name: faker.helpers.arrayElement([faker.word.sample(), undefined])})))
 
-export const getGetPrefectureResponseMock = (overrideResponse: Partial< HandlerPrefectureResponse > = {}): HandlerPrefectureResponse => ({code: faker.helpers.arrayElement([faker.word.sample(), undefined]), id: faker.helpers.arrayElement([faker.number.int({min: undefined, max: undefined}), undefined]), name: faker.helpers.arrayElement([faker.word.sample(), undefined]), ...overrideResponse})
+export const getGetPrefectureResponseMock = (overrideResponse: Partial< HandlerGetPrefectureResponse > = {}): HandlerGetPrefectureResponse => ({id: faker.helpers.arrayElement([faker.number.int({min: undefined, max: undefined}), undefined]), municipalities: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({id: faker.helpers.arrayElement([faker.number.int({min: undefined, max: undefined}), undefined]), is_active: faker.helpers.arrayElement([faker.datatype.boolean(), undefined]), municipality_name_kana: faker.helpers.arrayElement([faker.word.sample(), undefined]), municipality_name_kanji: faker.helpers.arrayElement([faker.word.sample(), undefined]), organization_code: faker.helpers.arrayElement([faker.word.sample(), undefined]), prefecture_code: faker.helpers.arrayElement([faker.word.sample(), undefined]), prefecture_name_kana: faker.helpers.arrayElement([faker.word.sample(), undefined]), prefecture_name_kanji: faker.helpers.arrayElement([faker.word.sample(), undefined])})), undefined]), name: faker.helpers.arrayElement([faker.word.sample(), undefined]), ...overrideResponse})
 
 
 export const getListPrefecturesMockHandler = (overrideResponse?: HandlerPrefectureResponse[] | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<HandlerPrefectureResponse[]> | HandlerPrefectureResponse[])) => {
@@ -37,7 +38,7 @@ export const getListPrefecturesMockHandler = (overrideResponse?: HandlerPrefectu
   })
 }
 
-export const getGetPrefectureMockHandler = (overrideResponse?: HandlerPrefectureResponse | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<HandlerPrefectureResponse> | HandlerPrefectureResponse)) => {
+export const getGetPrefectureMockHandler = (overrideResponse?: HandlerGetPrefectureResponse | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<HandlerGetPrefectureResponse> | HandlerGetPrefectureResponse)) => {
   return http.get('*/prefectures/:code', async (info) => {await delay(1000);
     return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
             ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 

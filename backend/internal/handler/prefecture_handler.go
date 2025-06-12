@@ -98,7 +98,7 @@ type GetPrefectureRequest struct {
 // @Param code path string true "都道府県コード"
 // @Description 都道府県コードを指定して、都道府県の詳細情報を取得します。
 // @Summary 都道府県詳細取得
-// @Success 200 {object} PrefectureResponse
+// @Success 200 {object} GetPrefectureResponse
 // @Failure 400 {object} ErrorResponseDetail
 // @Failure 401 {object} ErrorResponse
 // @Failure 403 {object} ErrorResponse
