@@ -30,7 +30,7 @@ export function useAuth() {
         return false;
       }
     },
-    [login]
+    [login],
   );
 
   const handleLogout = useCallback(() => {

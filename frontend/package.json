@@ -32,11 +32,13 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@faker-js/faker": "^9.8.0",
     "@types/node": "^20.8.6",
     "@types/react": "^18.2.28",
     "@types/react-dom": "^18.2.13",
     "@vitejs/plugin-react": "^4.1.0",
     "autoprefixer": "^10.4.16",
+    "msw": "^2.10.2",
     "orval": "^6.20.0",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.3",

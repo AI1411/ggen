@@ -35,7 +35,7 @@ export function Login() {
           role: 'user',
           createdAt: new Date().toISOString(),
         },
-        'mock-jwt-token'
+        'mock-jwt-token',
       );
     } catch (error) {
       console.error('Login failed', error);
