@@ -15,7 +15,7 @@ import {
 } from 'msw'
 import type {
   HandlerPrefectureResponse
-} from './model'
+} from '../../types/generated/model'
 
 export const getListPrefecturesResponseMock = (): HandlerPrefectureResponse[] => (Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({code: faker.helpers.arrayElement([faker.word.sample(), undefined]), id: faker.helpers.arrayElement([faker.number.int({min: undefined, max: undefined}), undefined]), name: faker.helpers.arrayElement([faker.word.sample(), undefined])})))
 

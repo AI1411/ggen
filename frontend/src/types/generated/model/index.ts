@@ -6,13 +6,9 @@
  * OpenAPI spec version: 1.0
  */
 
-export * from './getPrefecture404';
-export * from './getPrefectureParams';
 export * from './handlerErrorResponse';
 export * from './handlerErrorResponseDetail';
 export * from './handlerPrefectureResponse';
 export * from './handlerValidationError';
-export * from './listPrefectures400';
-export * from './listPrefectures500';
 export * from './myerrorsErrorCode';
 export * from './myerrorsErrorMessage';

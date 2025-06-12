@@ -3,6 +3,9 @@
   "organizeImports": {
     "enabled": true
   },
+  "files": {
+    "ignore": ["src/service/generated/**", "src/types/generated/**"]
+  },
   "linter": {
     "enabled": true,
     "rules": {

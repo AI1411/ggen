@@ -3,7 +3,7 @@ export default {
     output: {
       mode: 'split',
       target: 'src/service/generated/client.ts',
-      schemas: 'src/service/generated/model',
+      schemas: 'src/types/generated/model',
       client: 'react-query',
       mock: true,
       prettier: {

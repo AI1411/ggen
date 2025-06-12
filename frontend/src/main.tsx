@@ -5,7 +5,7 @@ import './index.css';
 import { RouterProvider } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import { StrictMode } from 'react';
-import { router } from './route';
+import { router } from './app/route.tsx';
 
 // アプリケーションのエントリーポイント
 ReactDOM.createRoot(document.getElementById('root')!).render(

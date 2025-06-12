@@ -24,7 +24,7 @@ import type {
   HandlerErrorResponse,
   HandlerErrorResponseDetail,
   HandlerPrefectureResponse
-} from './model'
+} from '../../types/generated/model'
 
 
 
