@@ -15,6 +15,10 @@ services:
       - .env
     volumes:
       - ./backend:/go/src/
+    security_opt:
+      - apparmor:unconfined
+    cap_add:
+      - SYS_PTRACE
     networks:
       - gen-network
     restart: unless-stopped
