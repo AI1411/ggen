@@ -10,7 +10,7 @@
     "format": "biome format --write .",
     "preview": "vite preview",
     "generate": "orval",
-    "generate-routes": "tsx scripts/generate-routes.ts"
+    "generate-routes": "tsr scripts/generate-routes.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.1",
@@ -33,6 +33,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@faker-js/faker": "^9.8.0",
+    "@tanstack/router-cli": "^1.121.2",
     "@types/node": "^20.8.6",
     "@types/react": "^18.2.28",
     "@types/react-dom": "^18.2.13",

@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-route';
 
 // 明示的に親ルートからのパスを指定
 export const indexRoute = createFileRoute('/')({

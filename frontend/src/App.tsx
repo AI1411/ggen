@@ -1,8 +1,11 @@
-import { Router } from './router';
+import { Link } from '@tanstack/react-router';
 
-// Routerコンポーネントをそのまま使用
-function App() {
-  return <Router />;
-}
-
-export default App;
+export const Hello = () => {
+  return (
+    <div>
+      <h1>Hello World</h1>
+      <p>Click on the links above to see the code splitting in action.</p>
+      <Link to="/">Go to Home</Link>
+    </div>
+  );
+};
