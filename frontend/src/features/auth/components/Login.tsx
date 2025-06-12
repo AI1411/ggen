@@ -22,10 +22,10 @@ export function Login() {
     try {
       // In a real app, you would call an API here
       console.log('Login form submitted', data);
-      
+
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      
+
       // Mock successful login
       login(
         {

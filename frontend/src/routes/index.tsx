@@ -10,7 +10,8 @@ function Index() {
     <div className="flex flex-col items-center justify-center gap-6">
       <h1 className="text-4xl font-bold">Welcome to your new app</h1>
       <p className="text-xl text-muted-foreground">
-        This is a starter template with React, TypeScript, Tailwind CSS, shadcn/ui, TanStack Query, and TanStack Router.
+        This is a starter template with React, TypeScript, Tailwind CSS, shadcn/ui, TanStack Query,
+        and TanStack Router.
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
         <FeatureCard
@@ -33,10 +34,7 @@ function Index() {
           title="Orval"
           description="Generate API clients from OpenAPI specifications."
         />
-        <FeatureCard
-          title="Zod + Zustand"
-          description="Schema validation and state management."
-        />
+        <FeatureCard title="Zod + Zustand" description="Schema validation and state management." />
       </div>
     </div>
   );

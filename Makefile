@@ -67,7 +67,7 @@ swag: ## swagger更新
 fmt: ## コードを自動整形（ツールチェイン使用）
 	@cd backend && go run mvdan.cc/gofumpt@latest -l -w .
 	@cd backend && go run golang.org/x/tools/cmd/goimports@latest -l -w -local "g_gen" .
-	@cd frontend && pnpm lint
+	@cd frontend && pnpm format
 
 .PHONY: lint lint-fix test test-coverage vet sec staticcheck tools
 ## 開発ツール関連

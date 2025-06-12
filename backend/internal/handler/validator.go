@@ -87,27 +87,6 @@ func init() {
 	})
 }
 
-func validateNumericID(id string) error {
-	type path struct {
-		ID string `binding:"required,numeric"`
-	}
-	return validate.Struct(path{ID: id})
-}
-
-func validateVcf(vcf string) error {
-	type path struct {
-		Vcf string `binding:"required,vcf"`
-	}
-	return validate.Struct(path{Vcf: vcf})
-}
-
-func validateVcs(vcs string) error {
-	type path struct {
-		Vcs string `binding:"required,vcs"`
-	}
-	return validate.Struct(path{Vcs: vcs})
-}
-
 // 日付時刻のバリデーション
 func isDateTimeString(fl validator.FieldLevel) bool {
 	_, err := time.Parse(time.RFC3339, fl.Field().String())

@@ -6,4 +6,4 @@
  * OpenAPI spec version: 1.0
  */
 
-export type ListPrefectures500 = {[key: string]: string};
+export type ListPrefectures500 = { [key: string]: string };

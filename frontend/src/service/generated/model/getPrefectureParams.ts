@@ -7,8 +7,8 @@
  */
 
 export type GetPrefectureParams = {
-/**
- * 都道府県コード
- */
-code: string;
+  /**
+   * 都道府県コード
+   */
+  code: string;
 };

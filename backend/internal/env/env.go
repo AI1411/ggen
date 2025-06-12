@@ -49,6 +49,6 @@ func NewValues() (*Values, error) {
 	return &v, nil
 }
 
-func (v Values) IsLocal() bool {
+func (v *Values) IsLocal() bool {
 	return v.Env == "local" || v.Env == "test"
 }

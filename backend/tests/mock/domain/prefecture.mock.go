@@ -11,8 +11,9 @@ package mock_domain
 
 import (
 	context "context"
-	model "g_gen/internal/domain/model"
 	reflect "reflect"
+
+	model "g_gen/internal/domain/model"
 
 	gomock "go.uber.org/mock/gomock"
 )
