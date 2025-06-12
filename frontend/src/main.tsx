@@ -5,14 +5,17 @@ import './index.css';
 import { RouterProvider } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import { StrictMode } from 'react';
+import AxiosProvider from './app/providers/AxiosProvider.tsx';
 import { router } from './app/route.tsx';
 
 // アプリケーションのエントリーポイント
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <TanStackRouterDevtools router={router} />
-    </QueryClientProvider>
+    <AxiosProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+        <TanStackRouterDevtools router={router} />
+      </QueryClientProvider>
+    </AxiosProvider>
   </StrictMode>,
 );
